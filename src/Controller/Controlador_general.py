@@ -1,4 +1,4 @@
-import sys
+'''import sys
 sys.path.append("src")
 import psycopg2
 import SecretConfig
@@ -59,3 +59,4 @@ else:
 cursor.close()
 connection.close()
 
+'''

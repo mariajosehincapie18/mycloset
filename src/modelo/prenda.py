@@ -18,4 +18,4 @@ class Prenda:
             self.estado = Prenda.SUCIA
         elif tipo == 3:
             self.estado = Prenda.ARREGLO
-        return
+        return 
