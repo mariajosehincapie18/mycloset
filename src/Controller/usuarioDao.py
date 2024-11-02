@@ -1,12 +1,12 @@
-
 class UsuarioDAO:
-    def __init__(self, db_conexion):
-        self.db = db_conexion
+    def __init__(self, db):
+        self.db = db
         self.crear_tabla()
         
 
     def crear_tabla(self):
-        self.db.cursor.execute( """
+        cursor = self.db.get_cursor()
+        cursor.execute( """
             CREATE TABLE  IF NOT EXISTS usuarios(
         id SERIAL PRIMARY KEY,
         nombre VARCHAR(100),

@@ -1,8 +1,23 @@
 class PrendaDAO:
-    def __init__(self, db_conexion):
-        self.db = db_conexion
+    def __init__(self, db):
+        self.db = db
         self.crear_tabla ()
 
 
-    def crea_tabla(self):
-        self.db.cursor.execute()
+    def crear_tabla(self):
+        cursor = self.db.get_cursor()
+        cursor.execute(
+            """CREATE TABLE IF NOT EXISTS prendas (
+        id_prenda INTEGER  PRIMARY KEY AUTOINCREMENT,
+        usuario_id INTEGER NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+        nombre_prenda VARCHAR(100),
+        ocasion VARCHAR(50),
+        talla VARCHAR(10),
+        temporada VARCHAR(50)
+        );
+        """
+    )
+
+        self.db.conector.commit()
+
+    
