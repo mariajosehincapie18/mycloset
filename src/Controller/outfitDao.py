@@ -7,7 +7,7 @@ class OutfitDAO:
         cursor= self.db.get_cursor()
         cursor.execute(
             """CREATE TABLE IF NOT EXISTS Outfit(
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id_outfit INTEGER PRIMARY KEY AUTOINCREMENT,
             nombre_outfit VARCHAR,
             prendas Varchar);
             """

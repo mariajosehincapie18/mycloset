@@ -8,8 +8,8 @@ class PrendaDAO:
         cursor = self.db.get_cursor()
         cursor.execute(
             """CREATE TABLE IF NOT EXISTS prendas (
-        id_prenda SERIAL  PRIMARY KEY AUTOINCREMENT,
-        usuario_id INTEGER NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+        id_prenda INTEGER  PRIMARY KEY AUTOINCREMENT,
+        usuario_id INTEGER NOT NULL REFERENCES usuarios(id_usuario) ON DELETE CASCADE,
         nombre_prenda VARCHAR(100),
         ocasion VARCHAR(50),
         talla VARCHAR(10),

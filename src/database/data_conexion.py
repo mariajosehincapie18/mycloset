@@ -1,7 +1,7 @@
 import sqlite3
 
 class DBconexion:
-    def __init__(self, db_path="src/database/closet.db"):
+    def __init__(self, db_path="src/database/"):
         self.conector = None
         self.db_path = db_path
         self.conectar()
