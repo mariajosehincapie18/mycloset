@@ -8,7 +8,7 @@ from Controller.prendaOutfitDao import OutfitPrendaDAO
 from gestores.gestorUsuario import GestorUsuario
 
 
-db_conexion = DBconexion(db_path="src/database/")
+db_conexion = DBconexion(db_path="src/database/mycloset.db")
 
 usuario_dao= UsuarioDAO(db_conexion)
 prenda_dao = PrendaDAO(db_conexion)
