@@ -3,13 +3,15 @@ class Prenda:
     LAVADAYLISTA = "Lista"
     SUCIA = "Sucia"
     ARREGLO = "Arreglo"
-    def __init__(self,nombre: str, tipo_prenda: str, color_prenda: str, talla: str, ocasion: str):
-        self.nombre = nombre
-        self.tipo_prenda = tipo_prenda
-        self.color_prenda = color_prenda
+    def __init__(self,nombre_prenda: str, talla: str, ocasion: str, imagen_prenda: str, color_prenda:str, tipo_prenda: str):
+        self.nombre_prenda = nombre_prenda
         self.talla = talla
         self.ocasion = ocasion 
         self.estado = None
+        self.imagen_prenda= imagen_prenda
+        self.color_prenda = color_prenda
+        self.tipo_prenda = tipo_prenda
+
 
     def cambiar_estado(self, tipo:int):
         if tipo == 1:

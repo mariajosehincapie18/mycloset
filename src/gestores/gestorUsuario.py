@@ -2,11 +2,13 @@ import sys
 sys.path.append("src")
 from Controller.usuarioDao import UsuarioDAO
 from modelo.usuario import Usuario
-
+from Controller.prendaDao import PrendaDAO
+from modelo.prenda import Prenda
 
 class GestorUsuario:
     def __init__(self, db):
         self.usuario_dao = UsuarioDAO(db)
+        self.prenda_dao = PrendaDAO(db)
 
     def registrar_usuario(self):
         print("REGISTRO DE USUARIO")
@@ -23,5 +25,6 @@ class GestorUsuario:
 
         self.usuario_dao.registrar_usuario(nuevo_usuario)
         print("usuario registrado exitosamente")
-
+    
+   
     

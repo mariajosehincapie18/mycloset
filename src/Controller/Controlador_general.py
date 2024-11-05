@@ -18,3 +18,5 @@ Outfit_prenda_dao= OutfitPrendaDAO(db_conexion)
 #registrar usuario
 gestor_usuario = GestorUsuario(db_conexion)
 gestor_usuario.registrar_usuario()
+usuario_actual= gestor_usuario.obtener_usuario_por_nombre("majo")
+gestor_usuario.agregar_prenda_usuario(usuario_actual)
