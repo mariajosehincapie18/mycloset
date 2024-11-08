@@ -1,13 +1,13 @@
 import sys
 sys.path.append("src")
-from gestores.gestorUsuario import GestorUsuario
-from gestores.gestorPrenda import GestorPrenda
+
 
 
 class MenuPrincipal:
-    def __init__(self, gestor_prenda:GestorPrenda, gestor_usuario:GestorUsuario):
+    def __init__(self, gestor_prenda, gestor_usuario):
         self.gestor_prenda = gestor_prenda
         self.gestor_usuario= gestor_usuario
+        
 
     def mostrar_menu(self):
         while True:
@@ -22,7 +22,8 @@ class MenuPrincipal:
             if opcion == "1":
                 self.gestor_usuario.registrar_usuario()
             elif opcion == "2":
-                self.gestor_prenda.agregar_prenda()
+                nombre_usuario= input(" INGRESE EL NOMBRE DEL USUARIO: ")
+                self.gestor_prenda.registrar_prenda_usuario(nombre_usuario)
             elif opcion == "3":
                 self.gestor_prenda.ver_prendas()
             elif opcion == "4":

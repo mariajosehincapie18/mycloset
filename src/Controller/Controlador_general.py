@@ -1,7 +1,4 @@
 import sys
-import os
-import shutil
-from pathlib import Path
 sys.path.append("src")
 from  database.data_conexion import DBconexion
 from  Controller.usuarioDao import UsuarioDAO
@@ -11,6 +8,7 @@ from Controller.prendaOutfitDao import OutfitPrendaDAO
 from gestores.gestorUsuario import GestorUsuario
 from gestores.gestorPrenda import GestorPrenda
 from GUI.gui import MenuPrincipal
+from gestores.gestorimagen import GestorImagen
 
 
 db_conexion = DBconexion(db_path="src/database/mycloset.db")
@@ -25,11 +23,12 @@ gestor_usuario = GestorUsuario(db_conexion)
 
 
 #registro prenda
-gestor_prenda= GestorPrenda(prenda_dao)
+gestor_imagen= GestorImagen()
+gestor_prenda= GestorPrenda(prenda_dao, usuario_dao, gestor_imagen )
 
 
-nombre_usuario= input("ingrese el nombre del usuario")
-gestor_prenda.registrar_prenda_usuario(gestor_usuario, nombre_usuario )
+
+
 
 menu = MenuPrincipal(gestor_prenda,gestor_usuario)
 menu.mostrar_menu()

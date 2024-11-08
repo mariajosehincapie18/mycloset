@@ -1,3 +1,7 @@
+import sys
+sys.path.append("src")
+from modelo.usuario import Usuario
+
 class UsuarioDAO:
     def __init__(self, db):
         self.db = db
@@ -27,6 +31,20 @@ class UsuarioDAO:
         usuario.contraseña, usuario.preferencia_estilo,",".join(usuario.colores_preferidos),
         ",".join(usuario.ropa_favorita))) 
         self.db.conector.commit()
+
+    def obtener_usuario_por_nombre(self, nombre_usuario):
+        cursor = self.db.get_cursor()
+        cursor.execute("SELECT * FROM usuarios WHERE nombre_usuario= ?", (nombre_usuario,))
+        row = cursor.fetchone()
+        if row:
+            return Usuario(
+                nombre_usuario=row[1],
+                contraseña=row[2],
+                preferenicia_estilo=row[3],
+                colores_preferidos=row[4].split(" , "),
+                ropa_favorita=row[5].split(" , ")
+            )
+        return None
      
         
 

@@ -8,14 +8,16 @@ class GestorImagen:
         self.imagen_directorio= Path(imagen_directorio)
         self.imagen_directorio.mkdir(parents=True, exist_ok=True)#crea el directorio sino existe
 
-    def guardar_imagen(self,imagen_prenda ):
-        #define el nombre y la ruta de la imagen
+    def guardar_imagen(self,imagen_nombre ):
+       #construir la ruta completa usando el nombre del archivo dentro de la carpeta de imagenes
+        ruta_imagen= self.imagen_directorio / imagen_nombre
 
-        imagen_nombre= os.path.basename(imagen_prenda)
-        nueva_imagen= self.imagen_directorio/ imagen_nombre
-
-        #copia la imagen a la carpeta de imagenes
-        shutil.copy(imagen_prenda, nueva_imagen)
-        print(f"IMAGEN GUARDAD EN: {nueva_imagen}")
-
-        return str(nueva_imagen) #ruta donde se guarda la imagen
+        if not ruta_imagen.is_file():
+            print("la no existe en la carpeta imagenes: intentalo de nuevo. ")
+            return None
+        
+        print(f"IMAGEN ENCONTRADA Y REGISTRADA EN : {ruta_imagen}")
+        return str(ruta_imagen)
+            
+        
+        
