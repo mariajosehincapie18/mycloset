@@ -7,9 +7,9 @@ from Controller.outfitDao import OutfitDAO
 from Controller.prendaOutfitDao import OutfitPrendaDAO
 from gestores.gestorUsuario import GestorUsuario
 from gestores.gestorPrenda import GestorPrenda
-from GUI.gui import MenuPrincipal
 from gestores.gestorimagen import GestorImagen
 from gestores.gestorAutenticacion import Autenticacion
+from GUI.gui import Gui
 
 
 
@@ -27,8 +27,8 @@ gestor_usuario = GestorUsuario(db_conexion)
 #registro prenda
 gestor_imagen= GestorImagen()
 gestor_prenda= GestorPrenda(prenda_dao, usuario_dao, gestor_imagen )
+gui= Gui(gestor_prenda)
 
-
-gestor_autenticacion = Autenticacion(gestor_usuario, gestor_prenda)
+gestor_autenticacion = Autenticacion(gestor_usuario, gestor_prenda, gui)
 
 gestor_autenticacion. mostrar_menu_principal()
