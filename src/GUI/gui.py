@@ -33,11 +33,11 @@ class Gui:
             label_nombre.pack()
 
             try:
-                imagen= Image.open(imagen_prenda)
-                imagen.thumbnail((100,100))
-                imagen_tk = ImageTk.PhotoImage(imagen)
+                imagen= Image.open(imagen_prenda)#abre el archivo de imagen de la ruta imagen_prenda
+                imagen.thumbnail((100,100))#redimensiona la imagen , matiene la proporcion
+                imagen_tk = ImageTk.PhotoImage(imagen)#convierte la imagen en un objeto compatible con tk
 
-                label_imagen= tk.Label(frame, image= imagen_tk)
+                label_imagen= tk.Label(frame, image= imagen_tk)#guarda una referencia de la imagen para evitar qeu se elimine cuando se muestre
                 label_imagen.image = imagen_tk #guarda referencias para tk
                 label_imagen.pack()
             except Exception as e:
