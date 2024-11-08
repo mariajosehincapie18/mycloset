@@ -24,7 +24,8 @@ class GestorUsuario:
         contraseña=contraseña, preferenicia_estilo=preferencia_estilo,colores_preferidos= colores_preferidos,
         ropa_favorita= ropa_favorita)
 
-        self.usuario_dao.registrar_usuario(nuevo_usuario)
+        usuario_id= self.usuario_dao.registrar_usuario(nuevo_usuario)
+        nuevo_usuario.id_usuario= usuario_id
         print("usuario registrado exitosamente")
 
     def obtener_usuario_por_nombre(self, nombre_usuario):

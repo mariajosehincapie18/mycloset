@@ -33,9 +33,10 @@ class PrendaDAO:
         prenda.talla, prenda.temporada, prenda.imagen_path, prenda.color_prenda, prenda.tipo_prenda))
         self.db.conector.commit()
          
-    def obtener_todas_las_prendas(self):
+    def obtener_todas_las_prendas(self, usuario_id):
         cursor= self.db.get_cursor()
-        cursor.execute("SELECT nombre_prenda, imagen_prenda FROM prendas")
+        cursor.execute("SELECT nombre_prenda, imagen_prenda FROM prendas WHERE usuario_id= ?", (usuario_id,))
+
         return cursor.fetchall() #devuelve una lista de tupla (nombre, imagen)
     
         

@@ -27,6 +27,7 @@ gestor_usuario = GestorUsuario(db_conexion)
 #registro prenda
 gestor_imagen= GestorImagen()
 gestor_prenda= GestorPrenda(prenda_dao, usuario_dao, gestor_imagen )
+
 gui= Gui(gestor_prenda)
 
 gestor_autenticacion = Autenticacion(gestor_usuario, gestor_prenda, gui)

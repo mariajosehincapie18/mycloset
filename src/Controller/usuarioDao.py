@@ -31,6 +31,7 @@ class UsuarioDAO:
         usuario.contraseña, usuario.preferencia_estilo,",".join(usuario.colores_preferidos),
         ",".join(usuario.ropa_favorita))) 
         self.db.conector.commit()
+        return cursor.lastrowid
 
     def obtener_usuario_por_nombre(self, nombre_usuario):
         cursor = self.db.get_cursor()

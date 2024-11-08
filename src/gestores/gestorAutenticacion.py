@@ -52,7 +52,7 @@ class Autenticacion:
             if opcion== "1":
                 self.gestor_prenda.registrar_prenda_usuario(usuario.nombre_usuario)
             elif opcion == "2":
-                self.gui.mostrar_prendas_en_ventana()
+                self.gui.mostrar_prendas_en_ventana(usuario.id_usuario)
             elif opcion == "3":
                 print("cerrar sesion")
                 break
