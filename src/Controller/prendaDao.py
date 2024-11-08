@@ -1,6 +1,5 @@
 import sys
 sys.path.append("src")
-from modelo.usuario import Usuario
 class PrendaDAO:
     def __init__(self, db):
         self.db = db
@@ -25,14 +24,13 @@ class PrendaDAO:
 
         self.db.conector.commit()
 
-    def agregar_prenda(self, prenda, usuario_id:Usuario):
+    def insertar_prenda(self, prenda, usuario_id):
         cursor= self.db.get_cursor()
-        self.usuario_id= usuario_id
         cursor.execute(""" 
         INSERT INTO prendas(usuario_id, nombre_prenda, ocasion,
-        talla, temporada, imagen_prenda, color_prenda, tipo_prenda) VALUES(?,?,?,?,?,?)""",
-        (prenda.usuario_id, prenda.nombre_prenda, prenda.ocasion,
-        prenda.talla, prenda.temporada, prenda.imagen_prenda, prenda.color_prenda, prenda.tipo_prenda))
+        talla, temporada, imagen_prenda, color_prenda, tipo_prenda) VALUES(?,?,?,?,?,?,?,?)""",
+        (usuario_id, prenda.nombre_prenda, prenda.ocasion,
+        prenda.talla, prenda.temporada, prenda.imagen_path, prenda.color_prenda, prenda.tipo_prenda))
         self.db.conector.commit()
          
         

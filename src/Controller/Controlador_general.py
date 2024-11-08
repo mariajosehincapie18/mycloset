@@ -9,6 +9,8 @@ from gestores.gestorUsuario import GestorUsuario
 from gestores.gestorPrenda import GestorPrenda
 from GUI.gui import MenuPrincipal
 from gestores.gestorimagen import GestorImagen
+from gestores.gestorAutenticacion import Autenticacion
+
 
 
 db_conexion = DBconexion(db_path="src/database/mycloset.db")
@@ -27,8 +29,6 @@ gestor_imagen= GestorImagen()
 gestor_prenda= GestorPrenda(prenda_dao, usuario_dao, gestor_imagen )
 
 
+gestor_autenticacion = Autenticacion(gestor_usuario, gestor_prenda)
 
-
-
-menu = MenuPrincipal(gestor_prenda,gestor_usuario)
-menu.mostrar_menu()
+gestor_autenticacion. mostrar_menu_principal()

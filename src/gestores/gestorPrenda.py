@@ -25,27 +25,30 @@ class GestorPrenda:
         nombre_prenda= input("Nombre de la prenda: ")
         talla= input("talla: ")
         ocasion= input("ocasion(ejemplo: elegante, fiesta)")
-        ruta_imagen= input("ruta de la imagen: ")
+        temporada= input("temporda: (ejemplo: verano, invierno)")
+        imagen_path= input("nombre de la imagen en la carpeta: (ej: camisaroja.jpg) ")
         color_prenda= input("color de la prenda: ")
         tipo_prenda= input("tipo de prenda(ejemplo: casual, formal, deportivo)")
 
-        if not os.path.isfile(ruta_imagen):
-            print("la ruta de la imagen no es valida. Intentalo de nuevo. ")
-            return
     #llamar agreagar prenda para registar la prenda
         self.agregar_prenda(
             id_usuario= usuario.id_usuario,
             nombre_prenda= nombre_prenda,
             talla=talla,
             ocasion= ocasion,
-            imagen_prenda= ruta_imagen,
+            temporada= temporada,
+            imagen_path= imagen_path,
             color_prenda= color_prenda,
             tipo_prenda= tipo_prenda
 
     )
 
-    def agregar_prenda(self, id_usuario, nombre_prenda, talla, ocasion, imagen_prenda, color_prenda, tipo_prenda):
-        saved_image_path = self.gestor_imagen.guardar_imagen(imagen_prenda)
+    def agregar_prenda(self, id_usuario, nombre_prenda, talla, ocasion,temporada, imagen_path, color_prenda, tipo_prenda):
+        imagen_path = self.gestor_imagen.guardar_imagen(imagen_path)
+
+        if imagen_path is None:
+            print("no se puede registrar la prenda por la imagen no existe en la carpeta imagenes.")
+            return
 
 
         #creamos el objeto prenda con la ruta de la imagen
@@ -53,12 +56,13 @@ class GestorPrenda:
             nombre_prenda= nombre_prenda,
             talla= talla,
             ocasion= ocasion,
-            imagen_prenda= saved_image_path,
+            temporada= temporada,
+            imagen_path= imagen_path,
             color_prenda= color_prenda,
             tipo_prenda=tipo_prenda,
 
         )
-
+#insertamos la prenda en la base de datos
         self.prenda_dao.insertar_prenda(nueva_prenda, id_usuario)
 
     def ver_prendas(self):

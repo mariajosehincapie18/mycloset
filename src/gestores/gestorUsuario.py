@@ -27,6 +27,9 @@ class GestorUsuario:
         self.usuario_dao.registrar_usuario(nuevo_usuario)
         print("usuario registrado exitosamente")
 
+    def obtener_usuario_por_nombre(self, nombre_usuario):
+        return self.usuario_dao.obtener_usuario_por_nombre(nombre_usuario)  
+
     
     
    

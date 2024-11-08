@@ -37,7 +37,7 @@ class UsuarioDAO:
         cursor.execute("SELECT * FROM usuarios WHERE nombre_usuario= ?", (nombre_usuario,))
         row = cursor.fetchone()
         if row:
-            return Usuario(
+            return Usuario(id_usuario=row[0],
                 nombre_usuario=row[1],
                 contraseña=row[2],
                 preferenicia_estilo=row[3],
