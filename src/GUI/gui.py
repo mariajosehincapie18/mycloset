@@ -5,9 +5,9 @@ from PIL import Image, ImageTk
 
 
 class Gui:
-    def __init__(self, gestor_prenda):
+    def __init__(self, gestor_prenda, gestor_outfit):
         self.gestor_prenda= gestor_prenda
-
+        self.gestor_outfit= gestor_outfit
 
     def mostrar_prendas_en_ventana(self, id_usuario):
         #obtiene todas las prendas de la base de datos
@@ -45,5 +45,6 @@ class Gui:
 
         ventana.mainloop()
 
+    
 
 
