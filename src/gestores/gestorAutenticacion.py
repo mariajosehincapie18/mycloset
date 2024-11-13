@@ -2,9 +2,10 @@ import sys
 sys.path.append("src")
 
 class Autenticacion:
-    def __init__(self, gestor_usuario, gestor_prenda, gui):
+    def __init__(self, gestor_usuario, gestor_prenda,  gestor_outfit, gui):
         self.gestor_usuario= gestor_usuario
         self.gestor_prenda= gestor_prenda
+        self.gestor_outfit= gestor_outfit
         self.gui = gui
         
 
@@ -46,14 +47,17 @@ class Autenticacion:
             print("\n*** MICLOSET***")
             print("1. Registrar prenda")
             print("2. Ver todas mis prendas")
-            print("3. salir")
+            print("3. seleccionar mi outfit")
+            print ("4. salir ")
             opcion= input("Seleccione una opcion: ")
 
             if opcion== "1":
                 self.gestor_prenda.registrar_prenda_usuario(usuario.nombre_usuario)
             elif opcion == "2":
                 self.gui.mostrar_prendas_en_ventana(usuario.id_usuario)
-            elif opcion == "3":
+            elif opcion =="3":
+                self.gui.seleccionar_prendas_para_outfit(usuario.id_usuario)
+            elif opcion == "4":
                 print("cerrar sesion")
                 break
             else:

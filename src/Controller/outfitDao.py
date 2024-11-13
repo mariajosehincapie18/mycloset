@@ -17,7 +17,7 @@ class OutfitDAO:
 
     def insertar_outfit(self, nombre_outfit):
         cursor= self.db.get_cursor()
-        cursor.execute("INSERT INTO Outfit (nombre_outfit) VALUES (?)", (nombre_outfit))
+        cursor.execute("INSERT INTO Outfit (nombre_outfit) VALUES (?)", (nombre_outfit,))
         self.db.conector.commit()
-        return cursor.lastrowid()
+        return cursor.lastrowid
     
