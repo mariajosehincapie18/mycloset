@@ -11,7 +11,7 @@ class PrendaDAO:
         cursor.execute(
             """CREATE TABLE IF NOT EXISTS prendas (
         id_prenda INTEGER  PRIMARY KEY AUTOINCREMENT,
-        usuario_id INTEGER NOT NULL REFERENCES usuarios(id_usuario) ON DELETE CASCADE,
+        id_usuario INTEGER NOT NULL REFERENCES usuarios(id_usuario) ON DELETE CASCADE,
         nombre_prenda VARCHAR(100),
         ocasion VARCHAR(50),
         talla VARCHAR(10),
@@ -24,18 +24,18 @@ class PrendaDAO:
 
         self.db.conector.commit()
 
-    def insertar_prenda(self, prenda, usuario_id):
+    def insertar_prenda(self, prenda, id_usuario):
         cursor= self.db.get_cursor()
         cursor.execute(""" 
-        INSERT INTO prendas(usuario_id, nombre_prenda, ocasion,
+        INSERT INTO prendas(id_usuario, nombre_prenda, ocasion,
         talla, temporada, imagen_prenda, color_prenda, tipo_prenda) VALUES(?,?,?,?,?,?,?,?)""",
-        (usuario_id, prenda.nombre_prenda, prenda.ocasion,
+        (id_usuario, prenda.nombre_prenda, prenda.ocasion,
         prenda.talla, prenda.temporada, prenda.imagen_path, prenda.color_prenda, prenda.tipo_prenda))
         self.db.conector.commit()
          
-    def obtener_todas_las_prendas(self, usuario_id):
+    def obtener_todas_las_prendas(self, id_usuario):
         cursor= self.db.get_cursor()
-        cursor.execute("SELECT nombre_prenda, imagen_prenda FROM prendas WHERE usuario_id= ?", (usuario_id,))
+        cursor.execute("SELECT nombre_prenda, imagen_prenda FROM prendas WHERE id_usuario= ?", (id_usuario,))
 
         return cursor.fetchall() #devuelve una lista de tupla (nombre, imagen)
     
