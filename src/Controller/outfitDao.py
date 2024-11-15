@@ -21,3 +21,11 @@ class OutfitDAO:
         self.db.conector.commit()
         return cursor.lastrowid
     
+
+    def obtener_id_outfit_por_nombre(self, nombre_outfit):
+        cursor= self.db.get_cursor()
+        cursor.execute("SELECT id_outfit From Outfit WHERE nombre_outfit = ? ", (nombre_outfit,))
+        result= cursor.fetchone()
+        if result:
+            return result[0]
+        return None

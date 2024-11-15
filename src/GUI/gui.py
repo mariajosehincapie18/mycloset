@@ -148,7 +148,7 @@ class Gui:
         btn_confirmar_outfit_completo= tk.Button(ventana_nombre, text="crear outfit", command=confirmar_creacion_de_outfit)
         btn_confirmar_outfit_completo.pack(pady=10)
     
-    def vizualizar_outfit_completo(self, nombre_outfit):
+    def visualizar_outfit_completo(self, nombre_outfit):
 
         ventana_outfit= tk.Toplevel()
         ventana_outfit.title(f"vizualizacion del outfit {nombre_outfit}")
@@ -159,9 +159,19 @@ class Gui:
             tk.Label(ventana_outfit, text="no se encontraron prendas para este outfit. ").pack(pady=5)
             return
         for detalle in detalles_outfit:
-            label_detalle= tk.Label(ventana_outfit, text=f"prenda: {detalle['prenda']} - tipo: {detalle['tipo']}- color: {detalle['color']}")
-        
-            label_detalle.pack(pady=5)
+            tk.Label(ventana_outfit, text=f"prenda: {detalle['prenda']} - tipo: {detalle['tipo']}- color: {detalle['color']}").pack(pady=5)
+            try:
+                imagen = Image.open(detalle["imagen_path"])
+                imagen.thumbnail((100,100))
+                imagen_tk = ImageTk.PhotoImage(imagen)
+
+                label_imagen= tk.Label(ventana_outfit, image=imagen_tk)
+                label_imagen.image = imagen_tk
+                label_imagen.pack(pady=5)
+            except Exception as e:
+                print(f"Error al cargar la imagen{detalle['imagen_path']}: {e}")
+                
+            
  
         ventana_outfit.mainloop()
            
