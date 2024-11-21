@@ -21,13 +21,13 @@ class OutfitPrendaDAO:
         self.db.conector.commit()
         
 
-    def obtener_prendas_por_outfit(self, id_outfit):
+    def obtener_prendas_por_outfit(self, id_outfit, id_usuario):
         cursor= self.db.get_cursor()
         cursor.execute(
             """ SELECT  p.nombre_prenda, p.tipo_prenda, p.color_prenda, p.imagen_prenda
             FROM prendas AS p
             JOIN prenda_outfit AS op ON p.id_prenda= op.id_prenda
-            WHERE op.id_outfit= ?""", (id_outfit,)
+            WHERE op.id_outfit= ? AND op.id_usuario= ?""", (id_outfit, id_usuario)
         )
         
         detalles = cursor.fetchall()

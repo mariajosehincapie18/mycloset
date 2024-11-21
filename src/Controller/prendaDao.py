@@ -24,6 +24,8 @@ class PrendaDAO:
 
         self.db.conector.commit()
 
+        
+
     def insertar_prenda(self, prenda, id_usuario):
         cursor= self.db.get_cursor()
         cursor.execute(""" 
@@ -35,9 +37,11 @@ class PrendaDAO:
          
     def obtener_todas_las_prendas(self, id_usuario):
         cursor= self.db.get_cursor()
-        cursor.execute("SELECT nombre_prenda, imagen_prenda FROM prendas WHERE id_usuario= ?", (id_usuario,))
+        cursor.execute("SELECT  id_prenda, nombre_prenda, imagen_prenda FROM prendas WHERE id_usuario= ?", (id_usuario,))
 
-        return cursor.fetchall() #devuelve una lista de tupla (nombre, imagen)
+        return [
+            {"id_prenda": row[0], "nombre_prenda": row[1], "image_prenda": row[2]}
+            for row in cursor.fetchall()]
     
         
 

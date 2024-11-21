@@ -49,10 +49,6 @@ class Gui:
 
     def seleccionar_prendas_para_outfit(self, id_usuario):
 
-        if isinstance(id_usuario, list) and len(id_usuario) == 1:
-            id_usuario= id_usuario[0]
-
-
         prendas= self.gestor_prenda.prenda_dao.obtener_todas_las_prendas(id_usuario)
 
         ventana= tk.Tk()
@@ -60,23 +56,29 @@ class Gui:
         seleccionadas= []
 
         for prenda in prendas:
-            nombre_prenda= prenda[0]
-            imagen_prenda= prenda[1]
+            nombre_prenda= prenda.get("nombre_prenda")
+            imagen_prenda= prenda.get("imagen_prenda")
 
-            if imagen_prenda:
-                try:
+        
+            try:
+                if imagen_prenda:
                     imagen= Image.open(imagen_prenda)
-                    imagen.thumbnail((50, 50))
-                    imagen_tk = ImageTk.PhotoImage(imagen)
 
-                    var = tk.BooleanVar()
-                    chk= tk.Checkbutton(ventana, text= nombre_prenda, variable=var, image=imagen_tk, compound='left')
-                    chk.image= imagen_tk
-                    chk.pack()
+                else:
+                    imagen= Image.open(r"C:\Users\USUARIO\Desktop\PROYECTO\imagen_predeterminada.jpg")
 
-                    seleccionadas.append((var, prenda))
-                except Exception as e:
-                    print(f"Error al cargar la imagen {imagen_prenda}: {e}")
+
+                imagen.thumbnail((80, 80))
+                imagen_tk = ImageTk.PhotoImage(imagen)
+
+                var = tk.BooleanVar()
+                chk= tk.Checkbutton(ventana, text= nombre_prenda, variable=var, image=imagen_tk, compound='left')
+                chk.image= imagen_tk
+                chk.pack()
+
+                seleccionadas.append((var, prenda))
+            except Exception as e:
+                print(f"Error al cargar la imagen {imagen_prenda}: {e}")
 
             
         btn_confirmar= tk.Button(ventana, text="Confirmar seleccion", command=lambda: self.mostrar_prendas_seleccionadas(ventana, seleccionadas, id_usuario))
@@ -132,32 +134,39 @@ class Gui:
         def confirmar_creacion_de_outfit():
 
             nombre_outfit= nombre_entery.get()
-            if not nombre_outfit:
+            if not nombre_outfit or not any(var.get() for var, _ in seleccionadas):
+                
                 messagebox.showwarning("porfavor ingresa un nombre para el outfit. ")
                 return
 
-            prendas_seleccionadas =[prenda[1][0] for var, prenda in seleccionadas if var.get()]
+            prendas_seleccionadas =[prenda["id_prenda"] for var, prenda in seleccionadas if var.get()]
             
 
             self.gestor_outfit.crear_outfit(nombre_outfit, prendas_seleccionadas, id_usuario)
             ventana_nombre.destroy()
             messagebox.showinfo("Exito", "outfit  creado y guardado exitosamente. ")
 
-            self.visualizar_outfit_completo(nombre_outfit)
+            self.visualizar_outfit_completo(nombre_outfit, id_usuario)
         
         btn_confirmar_outfit_completo= tk.Button(ventana_nombre, text="crear outfit", command=confirmar_creacion_de_outfit)
         btn_confirmar_outfit_completo.pack(pady=10)
     
-    def visualizar_outfit_completo(self, nombre_outfit):
+    def visualizar_outfit_completo(self, nombre_outfit,id_usuario):
 
         ventana_outfit= tk.Toplevel()
         ventana_outfit.title(f"vizualizacion del outfit {nombre_outfit}")
         tk.Label(ventana_outfit, text=f"Outfit: {nombre_outfit}", font=("Arial", 14, "bold")).pack(pady=10)
-        detalles_outfit= self.gestor_outfit.obtener_detalle_outfit(nombre_outfit)
-
-        if not detalles_outfit:
-            tk.Label(ventana_outfit, text="no se encontraron prendas para este outfit. ").pack(pady=5)
+        
+        id_outfit= self.gestor_outfit.outfit_dao.obtener_id_outfit_por_nombre(nombre_outfit)
+        if not id_outfit:
+            tk.Label(ventana_outfit, text="no se encontro el outfit seleccionado").pack(pady=10)
             return
+        
+        detalles_outfit= self.gestor_outfit.obtener_detalle_outfit(id_outfit, id_usuario)
+        if not detalles_outfit:
+            tk.Label(ventana_outfit, text="no se encontraron prendas para este outfit").pack(pady=5)
+            return
+
         for detalle in detalles_outfit:
             tk.Label(ventana_outfit, text=f"prenda: {detalle['prenda']} - tipo: {detalle['tipo']}- color: {detalle['color']}").pack(pady=5)
             try:

@@ -28,8 +28,8 @@ gestor_usuario = GestorUsuario(db_conexion)
 
 #registro prenda
 gestor_imagen= GestorImagen()
-gestor_prenda= GestorPrenda(prenda_dao, usuario_dao, gestor_imagen )
-gestor_outfit= GestorOutfit(outfit_dao, Outfit_prenda_dao)
+gestor_prenda= GestorPrenda(prenda_dao, usuario_dao, gestor_imagen)
+gestor_outfit= GestorOutfit(outfit_dao, Outfit_prenda_dao, prenda_dao)
 gui= Gui(gestor_prenda, gestor_outfit)
 
 gestor_autenticacion = Autenticacion(gestor_usuario, gestor_prenda,gestor_outfit, gui)

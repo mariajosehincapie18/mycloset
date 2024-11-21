@@ -9,15 +9,15 @@ class OutfitDAO:
             """CREATE TABLE IF NOT EXISTS Outfit(
             id_outfit INTEGER PRIMARY KEY AUTOINCREMENT,
             nombre_outfit VARCHAR,
-            prendas Varchar);
-            """
-            )
+            nombres_prendas TEXT
+            );
+            """)
 
         self.db.conector.commit()
 
-    def insertar_outfit(self, nombre_outfit):
+    def insertar_outfit(self, nombre_outfit, nombres_prendas):
         cursor= self.db.get_cursor()
-        cursor.execute("INSERT INTO Outfit (nombre_outfit) VALUES (?)", (nombre_outfit,))
+        cursor.execute("INSERT INTO Outfit (nombre_outfit, nombres_prendas) VALUES (?, ?)", (nombre_outfit, nombres_prendas))
         self.db.conector.commit()
         return cursor.lastrowid
     
